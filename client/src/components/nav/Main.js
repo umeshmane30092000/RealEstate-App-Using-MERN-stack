@@ -14,13 +14,13 @@ export default function Main() {
     navigate("/login");
   };
 
-  const loggedIn = 
-     auth.user != null && auth.token !== "" && auth.refreshToken !== "";
+  const loggedIn =
+    auth.user !== null && auth.token !== "" && auth.refreshToken !== "";
 
   const handlePostAdClick = () => {
-    if(loggedIn){
+    if (loggedIn) {
       navigate("/ad/create");
-    }else{
+    } else {
       navigate("/login");
     }
   };
@@ -32,40 +32,44 @@ export default function Main() {
       </NavLink>
 
       <a className="nav-link pointer" onClick={handlePostAdClick}>
-       Post Ad 
+        Post Ad
       </a>
 
-     { !loggedIn ? ( <>
-      <NavLink className="nav-link" to="/login">
-        Login
-      </NavLink>
-      <NavLink className="nav-link" to="/register">
-        Register
-      </NavLink>
-      </> ): (
-        " "
-        )}
-     {  loggedIn ? (
-      <div className="dropdown">
-        <li>
-          <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-          {auth?.user?.name ? auth.user.name : auth.user.username}
-          </a>
-          <ul className="dropdown-menu">
-            <li>
-              <NavLink className="nav-link" to="/dashboard">
-                Dashboard
-              </NavLink>
-            </li>
-            <li>
-              <a onClick={logout} className="nav-link">
-                Logout
-              </a>
-            </li>
-          </ul>
-        </li>
-      </div>) : (
-        " "
+      {!loggedIn ? (
+        <>
+          <NavLink className="nav-link" to="/login">
+            Login
+          </NavLink>
+          <NavLink className="nav-link" to="/register">
+            Register
+          </NavLink>
+        </>
+      ) : (
+        ""
+      )}
+
+      {loggedIn ? (
+        <div className="dropdown">
+          <li>
+            <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+              {auth?.user?.name ? auth.user.name : auth.user.username}
+            </a>
+            <ul className="dropdown-menu">
+              <li>
+                <NavLink className="nav-link" to="/dashboard">
+                  Dashboard
+                </NavLink>
+              </li>
+              <li>
+                <a onClick={logout} className="nav-link">
+                  Logout
+                </a>
+              </li>
+            </ul>
+          </li>
+        </div>
+      ) : (
+        ""
       )}
     </nav>
   );
